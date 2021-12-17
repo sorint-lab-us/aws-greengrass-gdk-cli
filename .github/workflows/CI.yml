@@ -40,7 +40,8 @@ jobs:
       - name: Testing CLI (Runs both unit and integration tests)
         run: |
           pip install .
-          coverage run --source=gdk -m pytest -v -s . && coverage report --show-missing --fail-under=70              
+          coverage run --source=gdk -m pytest -v -s . && coverage report --show-missing --fail-under=70 
+
   build-on-ubuntu:
     runs-on: ${{ matrix.config.os }}
     strategy:
@@ -69,7 +70,9 @@ jobs:
       - name: Testing CLI (Runs both unit and integration tests)
         run: |
           pip install .
-          coverage run --source=gdk -m pytest -v -s . && coverage report --show-missing --fail-under=70      
+          coverage run --source=gdk -m pytest -v -s . && coverage xml      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
   build-on-macos:
     runs-on: ${{ matrix.config.os }}
     strategy:
